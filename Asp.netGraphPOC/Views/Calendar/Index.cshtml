@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Microsoft.Graph.Event>
+
+
+@{
+    ViewBag.Current = "Calendar";
+}
+
+<h1>Calendar</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Organizer</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Organizer.EmailAddress.Name</td>
+                <td>@item.Subject</td>
+                <td>@Convert.ToDateTime(item.Start.DateTime).ToString("M/d/yy h:mm tt")</td>
+                <td>@Convert.ToDateTime(item.End.DateTime).ToString("M/d/yy h:mm tt")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<h3>Use the below to add a new event</h3>
+@using (Html.BeginForm("SubmitEvent", "Calendar", FormMethod.Post))
+{
+    var model = new Asp.netGraphPOC.Models.Event();
+    <span>Enter the subject of the event</span>@Html.TextBoxFor(m => model.Subject)
+    <br />
+    <span>Enter the body of the event</span> @Html.TextBoxFor(m => model.Body)
+    <br />
+    <span>Enter the start date: </span> @Html.TextBoxFor(m => model.StartDate)
+    <br />
+    <span>Enter the end date: </span> @Html.TextBoxFor(m => model.EndDate)
+    <br />
+    <span>Enter the attendees emails (separate by space)</span>@Html.TextBoxFor(m => model.Attendees)
+    <br />
+
+    <input id="Submit" type="submit" value="submit" />
+}

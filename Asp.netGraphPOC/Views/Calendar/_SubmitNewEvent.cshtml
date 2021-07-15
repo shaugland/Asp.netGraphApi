@@ -1,0 +1,19 @@
+﻿@model Asp.netGraphPOC.Models.Event
+
+
+<h3>Use the below to add a new event</h3>
+@using (Html.BeginForm("SubmitEvent", "Calendar", FormMethod.Post))
+{
+    <span>Enter the subject of the event</span>@Html.TextBoxFor(m => m.Subject)
+    <br />
+    <span>Enter the body of the event</span> @Html.TextBoxFor(m => m.Body)
+    <br />
+    <span>Enter the start date: </span> @Html.TextBoxFor(m => m.StartDate)
+    <br />
+    <span>Enter the end date: </span> @Html.TextBoxFor(m => m.EndDate)
+    <br />
+    <span>Enter the attendees emails (separate by space)</span>@Html.TextBoxFor(m => m.Attendees)
+    <br />
+
+    <input id="Submit" type="submit" value="submit" />
+}
